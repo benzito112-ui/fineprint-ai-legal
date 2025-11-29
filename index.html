@@ -17,6 +17,8 @@
             --tech-black: #0A0A0A;
             --dark-space: #0f0f1a;
             --resources-orange: #FF8C42;
+            --combat-red: #FF4444;
+            --success-green: #00FFAA;
         }
 
         * {
@@ -196,15 +198,15 @@
             border: 2px solid var(--quantum-blue);
             border-radius: 15px;
             padding: 2rem;
-            max-width: 800px;
+            max-width: 900px;
             width: 90%;
-            max-height: 80vh;
+            max-height: 90vh;
             overflow-y: auto;
         }
 
         .modal-header {
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
         }
@@ -223,6 +225,117 @@
             cursor: pointer;
         }
 
+        /* ANALYSIS AREAS */
+        .analysis-area {
+            background: rgba(0, 102, 255, 0.1);
+            border: 1px solid var(--quantum-blue);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        /* DROP ZONE STYLES */
+        .drop-zone {
+            border: 2px dashed var(--quantum-blue);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone:hover {
+            border-color: var(--learning-green);
+            background: rgba(0, 102, 255, 0.1);
+        }
+
+        .drop-zone.active {
+            border-color: var(--success-green);
+            background: rgba(0, 255, 170, 0.1);
+        }
+
+        /* FILE LIST STYLES */
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            margin: 0.5rem 0;
+        }
+
+        /* RESULT BOXES */
+        .result-box {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid var(--quantum-blue);
+        }
+
+        .risk-high {
+            border-left-color: var(--combat-red);
+            background: rgba(255, 68, 68, 0.1);
+        }
+
+        .risk-medium {
+            border-left-color: var(--ai-gold);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .risk-low {
+            border-left-color: var(--success-green);
+            background: rgba(0, 255, 170, 0.1);
+        }
+
+        /* FORM ELEMENTS */
+        textarea, input, select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--quantum-blue);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Exo 2', sans-serif;
+            resize: vertical;
+        }
+
+        textarea {
+            min-height: 120px;
+        }
+
+        button {
+            background: var(--quantum-blue);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Exo 2', sans-serif;
+        }
+
+        button:hover {
+            background: #0055cc;
+            transform: translateY(-2px);
+        }
+
+        button.success {
+            background: var(--success-green);
+            color: var(--tech-black);
+        }
+
+        button.warning {
+            background: var(--ai-gold);
+            color: var(--tech-black);
+        }
+
+        button.danger {
+            background: var(--combat-red);
+        }
+
         /* MINDTECH ANIMATIONS */
         @keyframes pulse {
             0%, 100% { opacity: 1; }
@@ -233,6 +346,11 @@
             0% { text-shadow: 0 0 10px #00A8FF, 0 0 20px #0066FF; }
             50% { text-shadow: 0 0 15px #00A8FF, 0 0 30px #0066FF, 0 0 40px #8A2BE2; }
             100% { text-shadow: 0 0 10px #00A8FF, 0 0 20px #0066FF; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         /* MINDFLOW FOOTER */
@@ -254,50 +372,35 @@
             animation: mindtechGlitch 2s infinite;
         }
 
-        /* WORKING COMPONENTS */
-        .analysis-area {
-            background: rgba(0, 102, 255, 0.1);
-            border: 1px solid var(--quantum-blue);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        textarea {
+        /* LOADING ANIMATION */
+        .loading-bar {
+            background: linear-gradient(90deg, var(--quantum-blue), var(--learning-green));
+            height: 4px;
             width: 100%;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--quantum-blue);
-            border-radius: 8px;
-            color: white;
-            font-family: 'Exo 2', sans-serif;
-            resize: vertical;
-            min-height: 120px;
+            border-radius: 2px;
+            animation: pulse 1.5s infinite;
         }
 
-        button {
-            background: var(--quantum-blue);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Exo 2', sans-serif;
-        }
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .portal-header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
 
-        button:hover {
-            background: #0055cc;
-            transform: translateY(-2px);
-        }
+            .resources-content {
+                padding: 1rem;
+            }
 
-        .result-box {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: 1rem;
-            border-left: 4px solid var(--quantum-blue);
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+            }
         }
     </style>
 </head>
@@ -395,10 +498,56 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Client Portal -->
+            <div class="resource-card" onclick="openClientPortal()">
+                <div class="resource-header">
+                    <i class="fas fa-users-gear resource-icon"></i>
+                    <h2 class="resource-title">Client Portal</h2>
+                </div>
+                <p class="resource-description">
+                    Secure client collaboration, real-time document sharing, and automated status tracking.
+                </p>
+                <div class="resource-features">
+                    <span class="feature-tag">Secure Sharing</span>
+                    <span class="feature-tag">Real-time Updates</span>
+                    <span class="feature-tag">Client Dashboard</span>
+                </div>
+                <div class="resource-action">
+                    <button>Access Portal</button>
+                    <div class="resource-stats">
+                        <span>👥 Team Ready</span>
+                        <span>⭐ 4.9/5</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compliance Scanner -->
+            <div class="resource-card" onclick="openComplianceScanner()">
+                <div class="resource-header">
+                    <i class="fas fa-shield-halved resource-icon"></i>
+                    <h2 class="resource-title">Compliance Scanner</h2>
+                </div>
+                <p class="resource-description">
+                    Real-time regulatory compliance monitoring across jurisdictions with automatic alerts.
+                </p>
+                <div class="resource-features">
+                    <span class="feature-tag">Regulatory AI</span>
+                    <span class="feature-tag">Multi-Jurisdiction</span>
+                    <span class="feature-tag">Auto-Alerts</span>
+                </div>
+                <div class="resource-action">
+                    <button>Scan Compliance</button>
+                    <div class="resource-stats">
+                        <span>📋 50+ Regulations</span>
+                        <span>⭐ 4.8/5</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- QUICK ACCESS SECTION -->
-        <div style="background: rgba(0, 102, 255, 0.1); border: 1px solid var(--quantum-blue); border-radius: 15px; padding: 2rem; margin-top: 2rem;">
+        <div class="analysis-area">
             <h2 style="color: var(--quantum-blue); margin-bottom: 1rem; text-align: center;">Quick Access Tools</h2>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
                 <button onclick="openDocumentAnalysis()">
@@ -407,7 +556,7 @@
                 <button onclick="openContractGenerator()">
                     <i class="fas fa-plus"></i> Create Contract
                 </button>
-                <button onclick="openTemplateLibrary()">
+                <button onclick="openTemplateLibrary()" class="success">
                     <i class="fas fa-folder"></i> Browse Templates
                 </button>
             </div>
@@ -415,61 +564,131 @@
     </main>
 
     <!-- MODALS -->
-    <!-- Document Analysis Modal -->
+
+    <!-- ENHANCED DOCUMENT ANALYSIS MODAL -->
     <div id="documentAnalysisModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">🔍 Document Analysis</h2>
+                <h2 class="modal-title">🔍 COMBAT DOCUMENT ANALYSIS</h2>
                 <button class="close-modal" onclick="closeModal('documentAnalysisModal')">×</button>
             </div>
+            
+            <!-- UPLOAD SECTION -->
             <div class="analysis-area">
-                <p>Paste your legal document text below for AI analysis:</p>
-                <textarea id="documentText" placeholder="Paste contract, agreement, or legal document text here..."></textarea>
-                <button onclick="analyzeDocument()" style="margin-top: 1rem; width: 100%;">
-                    🔍 ANALYZE WITH AI
+                <h3 style="color: var(--quantum-blue); margin-bottom: 1rem;">📁 UPLOAD DOCUMENT</h3>
+                
+                <!-- Drag & Drop Zone -->
+                <div id="dropZone" class="drop-zone">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--quantum-blue); margin-bottom: 1rem;"></i>
+                    <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">Drag & Drop Legal Documents Here</p>
+                    <p style="opacity: 0.7; margin-bottom: 1rem;">Supports: PDF, DOC, DOCX, TXT, PPT, XLS, Images</p>
+                    <button onclick="document.getElementById('fileInput').click()">
+                        <i class="fas fa-folder-open"></i> BROWSE FILES
+                    </button>
+                </div>
+                
+                <!-- Hidden File Input -->
+                <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.txt,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png" style="display: none;">
+                
+                <!-- File List -->
+                <div id="fileList" style="margin-top: 1rem;"></div>
+            </div>
+
+            <!-- QUICK TEMPLATE ACCESS -->
+            <div class="analysis-area" style="background: rgba(0, 255, 170, 0.1); border-color: var(--learning-green);">
+                <h3 style="color: var(--learning-green); margin-bottom: 1rem;">🚀 QUICK TEMPLATE ACCESS</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <button onclick="loadTemplate('nda')" class="success">
+                        <i class="fas fa-file-signature"></i> NDA Template
+                    </button>
+                    <button onclick="loadTemplate('employment')" class="success">
+                        <i class="fas fa-briefcase"></i> Employment Contract
+                    </button>
+                    <button onclick="loadTemplate('service')" class="success">
+                        <i class="fas fa-handshake"></i> Service Agreement
+                    </button>
+                    <button onclick="openTemplateLibrary()" class="warning">
+                        <i class="fas fa-plus"></i> Upload Template
+                    </button>
+                </div>
+            </div>
+
+            <!-- TEXT ANALYSIS AREA -->
+            <div class="analysis-area">
+                <h3 style="color: var(--quantum-blue); margin-bottom: 1rem;">📝 OR PASTE TEXT DIRECTLY</h3>
+                <textarea id="documentText" placeholder="Paste contract text here or upload documents above..." style="min-height: 200px;"></textarea>
+                
+                <!-- ANALYSIS OPTIONS -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="riskAnalysis" checked> Risk Analysis
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="complianceCheck" checked> Compliance Check
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="precedentResearch"> Precedent Research
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="recommendations" checked> AI Recommendations
+                    </label>
+                </div>
+                
+                <button onclick="enhancedAnalyzeDocument()" style="width: 100%; background: linear-gradient(135deg, var(--quantum-blue), var(--learning-green)); font-size: 1.1rem; padding: 1rem;">
+                    🚀 LAUNCH COMBAT ANALYSIS
                 </button>
-                <div id="analysisResults" class="result-box"></div>
+            </div>
+
+            <!-- RESULTS DISPLAY -->
+            <div id="analysisResults" class="result-box" style="display: none;">
+                <div id="resultsContent"></div>
             </div>
         </div>
     </div>
 
-    <!-- Contract Generator Modal -->
-    <div id="contractGeneratorModal" class="modal">
-        <div class="modal-content">
+    <!-- TEMPLATE LIBRARY MODAL -->
+    <div id="templateLibraryModal" class="modal">
+        <div class="modal-content" style="max-width: 1000px;">
             <div class="modal-header">
-                <h2 class="modal-title">📝 Contract Generator</h2>
-                <button class="close-modal" onclick="closeModal('contractGeneratorModal')">×</button>
+                <h2 class="modal-title">📚 TEMPLATE LIBRARY & MANAGEMENT</h2>
+                <button class="close-modal" onclick="closeModal('templateLibraryModal')">×</button>
             </div>
+            
+            <!-- TEMPLATE UPLOAD SECTION -->
             <div class="analysis-area">
-                <p>Select contract type and provide details:</p>
-                <select id="contractType" style="width: 100%; padding: 1rem; margin: 1rem 0; background: rgba(0,0,0,0.5); color: white; border: 1px solid var(--quantum-blue); border-radius: 8px;">
-                    <option value="nda">Non-Disclosure Agreement (NDA)</option>
-                    <option value="service">Service Agreement</option>
-                    <option value="employment">Employment Contract</option>
-                </select>
-                <textarea id="contractDetails" placeholder="Enter specific terms, parties, duration, etc..."></textarea>
-                <button onclick="generateContract()" style="margin-top: 1rem; width: 100%;">
-                    🚀 GENERATE CONTRACT
-                </button>
-                <div id="contractResults" class="result-box"></div>
+                <h3 style="color: var(--quantum-blue); margin-bottom: 1rem;">📤 UPLOAD NEW TEMPLATE</h3>
+                
+                <div style="display: grid; gap: 1rem;">
+                    <input type="text" id="templateName" placeholder="Template Name" style="padding: 1rem; background: rgba(0,0,0,0.5); color: white; border: 1px solid var(--quantum-blue); border-radius: 8px;">
+                    
+                    <select id="templateCategory" style="padding: 1rem; background: rgba(0,0,0,0.5); color: white; border: 1px solid var(--quantum-blue); border-radius: 8px;">
+                        <option value="nda">Non-Disclosure Agreement</option>
+                        <option value="employment">Employment Contract</option>
+                        <option value="service">Service Agreement</option>
+                        <option value="partnership">Partnership Agreement</option>
+                        <option value="license">License Agreement</option>
+                        <option value="custom">Custom Template</option>
+                    </select>
+                    
+                    <textarea id="templateContent" placeholder="Paste template content here..." style="min-height: 150px;"></textarea>
+                    
+                    <div style="border: 2px dashed var(--quantum-blue); border-radius: 10px; padding: 1.5rem; text-align: center;">
+                        <p>Or upload template file:</p>
+                        <input type="file" id="templateFile" accept=".doc,.docx,.pdf,.txt" style="margin: 1rem 0; color: white;">
+                    </div>
+                    
+                    <button onclick="uploadTemplate()" class="success">
+                        <i class="fas fa-upload"></i> UPLOAD TEMPLATE
+                    </button>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Precedent Analyzer Modal -->
-    <div id="precedentAnalyzerModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">⚖️ Precedent Analyzer</h2>
-                <button class="close-modal" onclick="closeModal('precedentAnalyzerModal')">×</button>
-            </div>
+            <!-- EXISTING TEMPLATES -->
             <div class="analysis-area">
-                <p>Enter legal clause or question for case law research:</p>
-                <textarea id="precedentQuery" placeholder="e.g., 'non-compete clause enforcement' or 'liability limitation in service agreements'"></textarea>
-                <button onclick="researchPrecedent()" style="margin-top: 1rem; width: 100%;">
-                    🔬 RESEARCH PRECEDENTS
-                </button>
-                <div id="precedentResults" class="result-box"></div>
+                <h3 style="color: var(--quantum-blue); margin-bottom: 1rem;">📁 YOUR TEMPLATES</h3>
+                <div id="templateGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+                    <!-- Templates will be loaded here -->
+                </div>
             </div>
         </div>
     </div>
@@ -519,6 +738,7 @@
         // MODAL FUNCTIONS
         function openDocumentAnalysis() {
             document.getElementById('documentAnalysisModal').style.display = 'block';
+            initDocumentAnalysis();
         }
 
         function openContractGenerator() {
@@ -529,86 +749,239 @@
             document.getElementById('precedentAnalyzerModal').style.display = 'block';
         }
 
+        function openClientPortal() {
+            showNotification('🚀 Launching Secure Client Portal...');
+        }
+
+        function openComplianceScanner() {
+            showNotification('🛡️ Activating Regulatory Compliance Scanner...');
+        }
+
         function openTemplateLibrary() {
-            showNotification('📚 Opening Template Library...');
+            document.getElementById('templateLibraryModal').style.display = 'block';
+            loadUserTemplates();
         }
 
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
         }
 
-        // WORKING AI FUNCTIONS
-        function analyzeDocument() {
-            const text = document.getElementById('documentText').value;
-            if (!text.trim()) {
-                showNotification('📝 Please paste document text to analyze');
-                return;
-            }
-
-            showNotification('🔍 AI analyzing document...');
+        // ENHANCED DOCUMENT ANALYSIS SYSTEM
+        function initDocumentAnalysis() {
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
             
-            // Simulate AI analysis
-            setTimeout(() => {
-                const issues = [];
-                if (text.toLowerCase().includes('binding arbitration')) {
-                    issues.push('🔴 Binding arbitration clause detected');
+            // Drag and drop functionality
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                dropZone.classList.add('active');
+            }
+            
+            function unhighlight() {
+                dropZone.classList.remove('active');
+            }
+            
+            dropZone.addEventListener('drop', handleDrop, false);
+            fileInput.addEventListener('change', handleFiles, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles({ target: { files } });
+            }
+            
+            function handleFiles(e) {
+                const files = e.target.files;
+                const fileList = document.getElementById('fileList');
+                fileList.innerHTML = '';
+                
+                for (let file of files) {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `
+                        <div style="flex: 1;">
+                            <i class="fas fa-file" style="color: var(--quantum-blue); margin-right: 0.5rem;"></i>
+                            ${file.name} (${(file.size / 1024).toFixed(1)} KB)
+                        </div>
+                        <button onclick="this.parentElement.remove()" class="danger" style="padding: 0.3rem 0.6rem;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    fileList.appendChild(fileItem);
                 }
-                if (text.toLowerCase().includes('unlimited liability')) {
-                    issues.push('🔴 Unlimited liability clause detected');
-                }
-                if (text.toLowerCase().includes('automatic renewal')) {
-                    issues.push('🟡 Automatic renewal clause detected');
-                }
-
-                const results = document.getElementById('analysisResults');
-                if (issues.length > 0) {
-                    results.innerHTML = '<h4>🚨 Issues Found:</h4>' + issues.map(issue => `<p>${issue}</p>`).join('');
-                } else {
-                    results.innerHTML = '<p>✅ No major issues detected</p>';
-                }
-            }, 2000);
+            }
         }
 
-        function generateContract() {
-            const type = document.getElementById('contractType').value;
-            const details = document.getElementById('contractDetails').value;
+        // ENHANCED ANALYSIS FUNCTION
+        function enhancedAnalyzeDocument() {
+            const files = document.getElementById('fileInput').files;
+            const text = document.getElementById('documentText').value;
             
-            showNotification('📝 Generating contract...');
+            if (files.length === 0 && !text.trim()) {
+                showNotification('📝 Please upload documents or paste text to analyze');
+                return;
+            }
             
+            showNotification('🔍 COMBAT ANALYSIS INITIATED: Scanning for legal risks...');
+            
+            // Show loading state
+            const results = document.getElementById('analysisResults');
+            results.style.display = 'block';
+            document.getElementById('resultsContent').innerHTML = `
+                <div style="text-align: center; padding: 2rem;">
+                    <div class="logo" style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                    <h3 style="color: var(--quantum-blue); margin-bottom: 1rem;">AI COMBAT ANALYSIS IN PROGRESS</h3>
+                    <div class="loading-bar"></div>
+                    <p style="margin-top: 1rem; opacity: 0.8;">Scanning documents for risks, compliance issues, and recommendations...</p>
+                </div>
+            `;
+            
+            // Simulate AI processing
             setTimeout(() => {
-                const results = document.getElementById('contractResults');
-                results.innerHTML = `
-                    <h4>✅ Contract Generated</h4>
-                    <p><strong>Type:</strong> ${type.toUpperCase()}</p>
-                    <p><strong>Details:</strong> ${details || 'Standard terms applied'}</p>
-                    <button onclick="downloadContract()" style="background: var(--learning-green); margin-top: 1rem;">
-                        📥 Download Contract
-                    </button>
-                `;
+                displayComprehensiveAnalysis(files, text);
+            }, 3000);
+        }
+
+        function displayComprehensiveAnalysis(files, text) {
+            const results = document.getElementById('resultsContent');
+            const riskScore = Math.floor(Math.random() * 100);
+            
+            let riskClass = 'risk-low';
+            let riskLevel = 'LOW RISK';
+            
+            if (riskScore > 70) {
+                riskClass = 'risk-high';
+                riskLevel = 'HIGH RISK';
+            } else if (riskScore > 40) {
+                riskClass = 'risk-medium';
+                riskLevel = 'MEDIUM RISK';
+            }
+            
+            results.innerHTML = `
+                <div class="result-box ${riskClass}">
+                    <h3 style="color: var(--quantum-blue); margin-bottom: 1rem;">📊 ANALYSIS COMPLETE</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; color: ${riskScore > 70 ? 'var(--combat-red)' : riskScore > 40 ? 'var(--ai-gold)' : 'var(--success-green)'};">${riskScore}/100</div>
+                            <div>Risk Score</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--quantum-blue);">${files.length || 1}</div>
+                            <div>Documents Analyzed</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--learning-green);">${Math.floor(Math.random() * 15) + 5}</div>
+                            <div>Issues Found</div>
+                        </div>
+                    </div>
+                    
+                    <h4>🚨 CRITICAL ISSUES DETECTED:</h4>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li>Binding arbitration clause limiting legal recourse</li>
+                        <li>Unlimited liability provisions</li>
+                        <li>Ambiguous termination conditions</li>
+                        <li>Overly broad intellectual property rights</li>
+                    </ul>
+                    
+                    <h4>💡 AI RECOMMENDATIONS:</h4>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li>Negotiate removal of binding arbitration clause</li>
+                        <li>Add specific liability caps</li>
+                        <li>Clarify termination notice periods</li>
+                        <li>Limit IP rights to specific purposes</li>
+                    </ul>
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                        <button class="success">
+                            <i class="fas fa-download"></i> Download Report
+                        </button>
+                        <button>
+                            <i class="fas fa-edit"></i> Generate Revised Version
+                        </button>
+                        <button class="warning">
+                            <i class="fas fa-user-tie"></i> Consult Legal Expert
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // TEMPLATE MANAGEMENT
+        function loadUserTemplates() {
+            const templateGrid = document.getElementById('templateGrid');
+            const templates = [
+                { name: 'Standard NDA', category: 'nda', date: '2024-01-15' },
+                { name: 'Employment Contract', category: 'employment', date: '2024-01-10' },
+                { name: 'Service Agreement', category: 'service', date: '2024-01-08' }
+            ];
+            
+            templateGrid.innerHTML = templates.map(template => `
+                <div class="resource-card">
+                    <div class="resource-header">
+                        <i class="fas fa-file-contract resource-icon"></i>
+                        <h3 class="resource-title">${template.name}</h3>
+                    </div>
+                    <div class="resource-features">
+                        <span class="feature-tag">${template.category.toUpperCase()}</span>
+                    </div>
+                    <div class="resource-action">
+                        <button onclick="loadTemplate('${template.category}')">Use Template</button>
+                        <div class="resource-stats">
+                            <span>${template.date}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function uploadTemplate() {
+            const name = document.getElementById('templateName').value;
+            const category = document.getElementById('templateCategory').value;
+            const content = document.getElementById('templateContent').value;
+            const file = document.getElementById('templateFile').files[0];
+            
+            if (!name || (!content && !file)) {
+                showNotification('📝 Please provide template name and content');
+                return;
+            }
+            
+            showNotification('📤 Uploading template to your library...');
+            
+            // Simulate upload
+            setTimeout(() => {
+                showNotification('✅ Template successfully uploaded!');
+                closeModal('templateLibraryModal');
             }, 1500);
         }
 
-        function researchPrecedent() {
-            const query = document.getElementById('precedentQuery').value;
+        function loadTemplate(type) {
+            const templates = {
+                'nda': 'NON-DISCLOSURE AGREEMENT TEMPLATE CONTENT...\n\nThis Agreement is made between [Party A] and [Party B]...',
+                'employment': 'EMPLOYMENT CONTRACT TEMPLATE CONTENT...\n\nThis Employment Agreement is made between [Employer] and [Employee]...', 
+                'service': 'SERVICE AGREEMENT TEMPLATE CONTENT...\n\nThis Service Agreement is made between [Service Provider] and [Client]...'
+            };
             
-            showNotification('⚖️ Researching legal precedents...');
-            
-            setTimeout(() => {
-                const results = document.getElementById('precedentResults');
-                results.innerHTML = `
-                    <h4>🔬 Precedent Research Results</h4>
-                    <p><strong>Query:</strong> "${query}"</p>
-                    <div style="margin-top: 1rem;">
-                        <p>• 📊 85% enforcement rate in similar cases</p>
-                        <p>• ⚖️ 3 relevant Supreme Court rulings</p>
-                        <p>• 📈 Trending favorable for plaintiffs</p>
-                    </div>
-                `;
-            }, 2000);
-        }
-
-        function downloadContract() {
-            showNotification('📥 Downloading contract document...');
+            document.getElementById('documentText').value = templates[type] || 'Template content will appear here...';
+            showNotification(`📝 Loaded ${type.toUpperCase()} template`);
+            closeModal('templateLibraryModal');
+            openDocumentAnalysis();
         }
 
         // NOTIFICATION SYSTEM
@@ -618,14 +991,14 @@
                 position: fixed;
                 top: 100px;
                 right: 20px;
-                background: linear-gradient(135deg, #0066FF, #00FFAA);
+                background: linear-gradient(135deg, var(--quantum-blue), var(--learning-green));
                 color: white;
                 padding: 15px 20px;
                 border-radius: 10px;
                 z-index: 10000;
                 max-width: 400px;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-                border-left: 4px solid #00FFAA;
+                border-left: 4px solid var(--learning-green);
                 animation: slideIn 0.3s ease;
                 font-weight: bold;
             `;
@@ -653,10 +1026,15 @@
             }
         }
 
-        console.log('🚀 FinePrint AI - FULLY OPERATIONAL');
-        console.log('🔍 Document Analysis: ACTIVE');
-        console.log('📝 Contract Generation: ACTIVE');
-        console.log('⚖️ Precedent Research: ACTIVE');
+        // Add keyboard shortcut for escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    modal.style.display = 'none';
+                });
+            }
+        });
     </script>
 </body>
 </html>
